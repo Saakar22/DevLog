@@ -43,9 +43,9 @@ export default function App() {
   // Initial loading screen
   if (isAuthLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center font-mono">
-        <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-xs text-slate-400">Verifying security context &amp; auth token...</p>
+      <div className="min-h-screen text-[#E8E8EA] flex flex-col items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#6EA8FE] border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-xs text-[#9A9AA2]">Verifying security context &amp; auth token...</p>
       </div>
     );
   }

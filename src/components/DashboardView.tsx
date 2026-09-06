@@ -129,31 +129,34 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
   }, [logs, selectedTag, resolutionFilter, searchTerm]);
 
   return (
-    <div id="dashboard-container" className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div id="dashboard-container" className="min-h-screen text-[#E8E8EA] flex flex-col selection:bg-[#6EA8FE]/20 selection:text-[#E8E8EA]">
       {/* App Topbar */}
-      <header id="dashboard-nav" className="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-30 px-6 py-3">
+      <header id="dashboard-nav" className="glass-panel sticky top-0 z-30 px-6 py-3 border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+            <div className="w-8 h-8 rounded-lg glass-panel-secondary flex items-center justify-center text-[#E8E8EA]">
               <Terminal className="w-4 h-4" />
             </div>
-            <div>
-              <span className="font-mono text-base font-bold text-white tracking-tight flex items-center gap-2">
-                DevLog <span className="text-[10px] text-cyan-400 font-mono bg-cyan-950/60 border border-cyan-800 px-1.5 py-0.2 rounded">Console</span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono-code text-base font-semibold text-[#E8E8EA] tracking-tight">
+                DevLog
+              </span>
+              <span className="font-mono-code text-[11px] text-[#9A9AA2] px-2 py-0.5 rounded glass-panel-secondary">
+                Console
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {/* User profile indicator */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg glass-panel-secondary text-xs">
               <div className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span className="text-slate-300 truncate max-w-[180px]">
+              <span className="text-[#9A9AA2] truncate max-w-[180px]">
                 {user.displayName || user.email}
               </span>
             </div>
 
-            {/* New Log Action button */}
+            {/* New Log Action button (Single blue accent) */}
             {!isStartingSession && (
               <button
                 id="dashboard-new-log-btn"
@@ -161,7 +164,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
                   setStatusNotification(null);
                   setIsStartingSession(true);
                 }}
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-mono font-semibold text-slate-950 bg-cyan-400 hover:bg-cyan-300 transition shadow-sm cursor-pointer"
+                className="focus-ring inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium text-[#0B0C0E] bg-[#6EA8FE] hover:bg-[#86b7fe] transition-colors cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>New Log</span>
@@ -172,8 +175,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
             <button
               id="dashboard-logout-btn"
               onClick={() => logOut()}
-              className="p-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent hover:border-slate-800 transition cursor-pointer"
-              title="Sign Out"
+              className="p-1.5 rounded-lg text-[#9A9AA2] hover:text-[#E8E8EA] glass-panel-secondary hover:bg-white/[0.08] transition-colors cursor-pointer"
+              title="Sign out"
             >
               <LogOut className="w-4 h-4" />
             </button>
@@ -185,16 +188,16 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
       {statusNotification && (
         <div className="max-w-7xl mx-auto px-6 pt-3 w-full">
           <div
-            className={`p-3 rounded-lg text-xs font-mono flex items-center justify-between border ${
+            className={`p-3 rounded-xl text-xs flex items-center justify-between glass-panel border ${
               statusNotification.type === "success"
-                ? "bg-emerald-950/70 border-emerald-800 text-emerald-300"
-                : "bg-red-950/70 border-red-800 text-red-300"
+                ? "border-emerald-500/30 text-emerald-300"
+                : "border-red-500/30 text-red-300"
             }`}
           >
             <span>{statusNotification.message}</span>
             <button
               onClick={() => setStatusNotification(null)}
-              className="underline text-[11px] cursor-pointer ml-4"
+              className="underline text-[11px] cursor-pointer ml-4 text-[#9A9AA2] hover:text-[#E8E8EA]"
             >
               Dismiss
             </button>
@@ -214,23 +217,23 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
             {/* Left/Main Column: Log History & Search */}
             <div className="lg:col-span-8 space-y-4">
               {/* Filter & Search Bar */}
-              <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 backdrop-blur-sm space-y-3">
+              <div className="glass-panel rounded-xl p-4 space-y-3">
                 <div className="flex flex-col sm:flex-row gap-3">
                   {/* Search input */}
                   <div className="relative flex-1">
-                    <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+                    <Search className="w-4 h-4 text-[#9A9AA2] absolute left-3 top-2.5" />
                     <input
                       id="search-logs-input"
                       type="text"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       placeholder="Search title, root cause, language, tags..."
-                      className="w-full pl-9 pr-3 py-2 rounded-lg bg-slate-950/80 border border-slate-800 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/80"
+                      className="focus-ring w-full pl-9 pr-3 py-2 rounded-lg glass-panel-secondary text-xs text-[#E8E8EA] placeholder-[#9A9AA2]/60 focus:outline-none"
                     />
                     {searchTerm && (
                       <button
                         onClick={() => setSearchTerm("")}
-                        className="absolute right-2.5 top-2.5 text-[10px] font-mono text-slate-500 hover:text-slate-300"
+                        className="absolute right-2.5 top-2.5 text-[11px] text-[#9A9AA2] hover:text-[#E8E8EA]"
                       >
                         Clear
                       </button>
@@ -238,63 +241,63 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
                   </div>
 
                   {/* Resolution quick toggle */}
-                  <div className="flex items-center gap-1 bg-slate-950/80 p-1 rounded-lg border border-slate-800 text-xs font-mono">
+                  <div className="flex items-center gap-1 glass-panel-secondary p-1 rounded-lg text-xs">
                     <button
                       onClick={() => setResolutionFilter("all")}
-                      className={`px-2.5 py-1 rounded cursor-pointer transition ${
+                      className={`px-3 py-1 rounded cursor-pointer transition-colors ${
                         resolutionFilter === "all"
-                          ? "bg-slate-800 text-white font-medium"
-                          : "text-slate-400 hover:text-slate-200"
+                          ? "bg-white/[0.08] text-[#E8E8EA] font-medium"
+                          : "text-[#9A9AA2] hover:text-[#E8E8EA]"
                       }`}
                     >
                       All ({logs.length})
                     </button>
                     <button
                       onClick={() => setResolutionFilter("resolved")}
-                      className={`px-2.5 py-1 rounded cursor-pointer transition ${
+                      className={`px-3 py-1 rounded cursor-pointer transition-colors ${
                         resolutionFilter === "resolved"
-                          ? "bg-emerald-950 text-emerald-300 font-medium"
-                          : "text-slate-400 hover:text-slate-200"
+                          ? "bg-white/[0.08] text-[#E8E8EA] font-medium"
+                          : "text-[#9A9AA2] hover:text-[#E8E8EA]"
                       }`}
                     >
                       Resolved
                     </button>
                     <button
                       onClick={() => setResolutionFilter("unresolved")}
-                      className={`px-2.5 py-1 rounded cursor-pointer transition ${
+                      className={`px-3 py-1 rounded cursor-pointer transition-colors ${
                         resolutionFilter === "unresolved"
-                          ? "bg-amber-950 text-amber-300 font-medium"
-                          : "text-slate-400 hover:text-slate-200"
+                          ? "bg-white/[0.08] text-[#E8E8EA] font-medium"
+                          : "text-[#9A9AA2] hover:text-[#E8E8EA]"
                       }`}
                     >
-                      In Progress
+                      In progress
                     </button>
                   </div>
                 </div>
 
                 {/* Active Filters Tag Bar */}
                 {(selectedTag || searchTerm || resolutionFilter !== "all") && (
-                  <div className="flex items-center gap-2 pt-2 border-t border-slate-800/60 text-xs font-mono">
-                    <span className="text-slate-500 flex items-center gap-1">
+                  <div className="flex items-center gap-2 pt-2 border-t border-white/[0.06] text-xs">
+                    <span className="text-[#9A9AA2] flex items-center gap-1">
                       <ListFilter className="w-3.5 h-3.5" />
                       Active filters:
                     </span>
                     {selectedTag && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded glass-panel-secondary text-[#E8E8EA]">
                         tag: #{selectedTag}
-                        <button onClick={() => setSelectedTag(null)} className="ml-1 hover:text-white">&times;</button>
+                        <button onClick={() => setSelectedTag(null)} className="ml-1 text-[#9A9AA2] hover:text-white">&times;</button>
                       </span>
                     )}
                     {searchTerm && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded glass-panel-secondary text-[#E8E8EA]">
                         query: &ldquo;{searchTerm}&rdquo;
-                        <button onClick={() => setSearchTerm("")} className="ml-1 hover:text-white">&times;</button>
+                        <button onClick={() => setSearchTerm("")} className="ml-1 text-[#9A9AA2] hover:text-white">&times;</button>
                       </span>
                     )}
                     {resolutionFilter !== "all" && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
-                        status: {resolutionFilter}
-                        <button onClick={() => setResolutionFilter("all")} className="ml-1 hover:text-white">&times;</button>
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded glass-panel-secondary text-[#E8E8EA]">
+                        status: {resolutionFilter === "resolved" ? "Resolved" : "In progress"}
+                        <button onClick={() => setResolutionFilter("all")} className="ml-1 text-[#9A9AA2] hover:text-white">&times;</button>
                       </span>
                     )}
                     <button
@@ -303,7 +306,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
                         setSearchTerm("");
                         setResolutionFilter("all");
                       }}
-                      className="text-slate-500 hover:text-slate-300 underline text-[11px] ml-auto cursor-pointer"
+                      className="text-[#9A9AA2] hover:text-[#E8E8EA] underline text-[11px] ml-auto cursor-pointer"
                     >
                       Reset all
                     </button>
@@ -313,17 +316,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
 
               {/* DevLogs Feed */}
               {isLoadingLogs ? (
-                <div className="py-16 text-center text-slate-500 font-mono text-xs flex flex-col items-center gap-3">
-                  <div className="w-5 h-5 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                <div className="py-16 text-center text-[#9A9AA2] text-xs flex flex-col items-center gap-3">
+                  <div className="w-5 h-5 border-2 border-[#6EA8FE] border-t-transparent rounded-full animate-spin" />
                   <span>Loading user-isolated DevLogs from Firestore...</span>
                 </div>
               ) : filteredLogs.length === 0 ? (
-                <div className="rounded-xl border border-dashed border-slate-800 bg-slate-900/30 p-12 text-center">
-                  <div className="w-12 h-12 rounded-xl bg-slate-800/80 text-cyan-400 flex items-center justify-center mx-auto mb-4">
-                    <Bug className="w-6 h-6" />
+                <div className="glass-panel rounded-xl p-12 text-center">
+                  <div className="w-10 h-10 rounded-xl glass-panel-secondary text-[#E8E8EA] flex items-center justify-center mx-auto mb-4">
+                    <Bug className="w-5 h-5" />
                   </div>
-                  <h4 className="text-base font-semibold font-mono text-white">No logs found</h4>
-                  <p className="mt-1 text-xs text-slate-400 max-w-sm mx-auto">
+                  <h4 className="text-sm font-medium text-[#E8E8EA]">No logs found</h4>
+                  <p className="mt-1 text-xs text-[#9A9AA2] max-w-sm mx-auto">
                     {logs.length === 0
                       ? "Your journal is empty. Click 'New Log' to launch a rubber-ducking debugging session with Gemini."
                       : "No records match your active tag or search filters."}
@@ -331,10 +334,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
                   {logs.length === 0 ? (
                     <button
                       onClick={() => setIsStartingSession(true)}
-                      className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium text-slate-950 bg-cyan-400 hover:bg-cyan-300 cursor-pointer"
+                      className="focus-ring mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium text-[#0B0C0E] bg-[#6EA8FE] hover:bg-[#86b7fe] transition-colors cursor-pointer"
                     >
                       <Plus className="w-4 h-4" />
-                      <span>Start First Debugging Session</span>
+                      <span>Start first debugging session</span>
                     </button>
                   ) : (
                     <button
@@ -343,7 +346,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
                         setSearchTerm("");
                         setResolutionFilter("all");
                       }}
-                      className="mt-4 text-xs font-mono text-cyan-400 underline cursor-pointer"
+                      className="mt-4 text-xs text-[#6EA8FE] hover:underline cursor-pointer"
                     >
                       Clear all filters
                     </button>
@@ -351,11 +354,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between text-xs font-mono text-slate-500 px-1">
-                    <span>SHOWING {filteredLogs.length} OF {logs.length} LOGS</span>
+                  <div className="flex items-center justify-between text-xs text-[#9A9AA2] px-1">
+                    <span>Showing {filteredLogs.length} of {logs.length} logs</span>
                     <button
                       onClick={loadLogs}
-                      className="flex items-center gap-1 hover:text-slate-300 cursor-pointer"
+                      className="flex items-center gap-1 hover:text-[#E8E8EA] cursor-pointer transition-colors"
                       title="Refresh logs from Firestore"
                     >
                       <RefreshCw className="w-3 h-3" />
@@ -385,25 +388,25 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
               />
 
               {/* Developer Journaling Guide */}
-              <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-5 text-xs font-mono text-slate-400 space-y-2.5">
-                <div className="flex items-center gap-2 text-slate-200 font-semibold">
-                  <Terminal className="w-4 h-4 text-cyan-400" />
-                  <span>The DevLog Philosophy</span>
+              <div className="glass-panel rounded-xl p-5 text-xs text-[#9A9AA2] space-y-3">
+                <div className="flex items-center gap-2 text-[#E8E8EA] font-medium">
+                  <Terminal className="w-4 h-4" />
+                  <span>The DevLog philosophy</span>
                 </div>
-                <p className="leading-relaxed text-[11.5px]">
-                  Traditional journals capture sentiment; DevLog captures technical mechanism. Use sessions to dissect race conditions, memory leaks, and off-by-one errors.
+                <p className="leading-relaxed text-xs">
+                  Traditional journals capture sentiment; DevLog captures technical mechanism. Use sessions to dissect race conditions, memory leaks, and architectural deadlocks.
                 </p>
-                <div className="pt-2 border-t border-slate-800/80 space-y-1.5 text-[11px]">
-                  <div className="flex items-center gap-2 text-emerald-400">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
+                <div className="pt-2 border-t border-white/[0.06] space-y-2 text-xs">
+                  <div className="flex items-center gap-2 text-[#E8E8EA]">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#9A9AA2]" />
                     <span>Owner-bound Firestore isolation</span>
                   </div>
-                  <div className="flex items-center gap-2 text-cyan-400">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 text-[#E8E8EA]">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#9A9AA2]" />
                     <span>Gemini JSON Schema enforcement</span>
                   </div>
-                  <div className="flex items-center gap-2 text-teal-400">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2 text-[#E8E8EA]">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#9A9AA2]" />
                     <span>Resilient 4-model fallback ladder</span>
                   </div>
                 </div>
