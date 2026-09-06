@@ -1,0 +1,6 @@
+{
+  "name": "DevLog",
+  "description": "A structured debugging and dev-log journal for programmers powered by Gemini and Firestore.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
