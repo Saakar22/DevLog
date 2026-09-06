@@ -41,7 +41,7 @@ export function redactSecretString(text: string): string {
 
   // 2. Google / Firebase API keys (AIza...)
   sanitized = sanitized.replace(
-    /\bAIza[0-9A-Za-z_\-]{35}\b/g,
+    /\bAIza[0-9A-Za-z_\-]{10,}\b/g,
     "[REDACTED_API_KEY]"
   );
 
@@ -82,7 +82,7 @@ export function redactSecretString(text: string): string {
 
   // 8. Key-Value assignment pairs (e.g., GEMINI_API_KEY="...", password: "...")
   sanitized = sanitized.replace(
-    /\b(api[_-]?key|secret|token|password|passwd|auth[_-]?token|jwt[_-]?secret|private[_-]?key)\b(\s*[:=]\s*["']?)([^"'\s\n,;]{8,})(["']?)/gi,
+    /\b([A-Za-z0-9_]*(?:api[_-]?key|secret|token|password|passwd|auth[_-]?token|jwt[_-]?secret|private[_-]?key))\b(\s*[:=]\s*["']?)([^"'\s\n,;]{6,})(["']?)/gi,
     (match, keyName, separator, secretVal, quote) => {
       const lower = secretVal.toLowerCase();
       if (NON_SECRET_WORDS.has(lower) || secretVal.startsWith("[REDACTED")) {

@@ -3,6 +3,7 @@ import path from "path";
 import dotenv from "dotenv";
 import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { createServer as createViteServer } from "vite";
+import { redactSecretString } from "./src/lib/redactSecrets";
 
 dotenv.config();
 
@@ -26,17 +27,14 @@ function getGeminiClient(): GoogleGenAI {
   return aiClient;
 }
 
-// Safe log and error sanitization helper
+// Safe log and error sanitization helper using shared secret redaction
 function sanitizeErrorMessage(err: unknown): string {
   if (!err) return "An unexpected error occurred.";
   const raw = typeof err === "object" && err !== null && "message" in err
     ? String((err as any).message)
     : String(err);
 
-  return raw
-    .replace(/AIza[0-9A-Za-z_\-]{35}/g, "[REDACTED_API_KEY]")
-    .replace(/key=[A-Za-z0-9_\-]+/gi, "key=[REDACTED]")
-    .replace(/Bearer\s+[A-Za-z0-9_\-\.]+/gi, "Bearer [REDACTED]");
+  return redactSecretString(raw);
 }
 
 // Resilient Model Fallback Ladder per Production Directives
@@ -95,11 +93,11 @@ app.post("/api/chat", async (req, res) => {
       return res.status(400).json({ error: "Missing or empty 'messages' array in request payload." });
     }
 
-    // Format history for Gemini SDK
+    // Format history for Gemini SDK with sensitive secrets redacted
     // The messages array contains { role: 'user' | 'model', content: string }
     const contents = messages.map((m: any) => ({
       role: m.role === "model" ? "model" : "user",
-      parts: [{ text: String(m.content || "") }],
+      parts: [{ text: redactSecretString(String(m.content || "")) }],
     }));
 
     const systemInstruction = systemPrompt || 
@@ -192,9 +190,9 @@ app.post("/api/extract-log", async (req, res) => {
       return res.status(400).json({ error: "Missing or empty 'transcript' array." });
     }
 
-    // Prepare transcript as text block for extraction
+    // Prepare transcript as text block for extraction with sensitive secrets redacted
     const formattedTranscript = transcript
-      .map((msg: any) => `${msg.role === "user" ? "DEVELOPER" : "AI MENTOR"}: ${msg.content}`)
+      .map((msg: any) => `${msg.role === "user" ? "DEVELOPER" : "AI MENTOR"}: ${redactSecretString(String(msg.content || ""))}`)
       .join("\n\n");
 
     const promptText = 
