@@ -26,6 +26,19 @@ function getGeminiClient(): GoogleGenAI {
   return aiClient;
 }
 
+// Safe log and error sanitization helper
+function sanitizeErrorMessage(err: unknown): string {
+  if (!err) return "An unexpected error occurred.";
+  const raw = typeof err === "object" && err !== null && "message" in err
+    ? String((err as any).message)
+    : String(err);
+
+  return raw
+    .replace(/AIza[0-9A-Za-z_\-]{35}/g, "[REDACTED_API_KEY]")
+    .replace(/key=[A-Za-z0-9_\-]+/gi, "key=[REDACTED]")
+    .replace(/Bearer\s+[A-Za-z0-9_\-\.]+/gi, "Bearer [REDACTED]");
+}
+
 // Resilient Model Fallback Ladder per Production Directives
 const MODEL_FALLBACK_LADDER = [
   "gemini-3.6-flash",
@@ -51,7 +64,7 @@ async function generateContentWithFallback(params: {
       });
       return { response, modelUsed: model };
     } catch (err: any) {
-      console.warn(`[Gemini Model Fallback] Model '${model}' failed:`, err?.message || err);
+      console.warn(`[Gemini Model Fallback] Model '${model}' failed:`, sanitizeErrorMessage(err));
       lastError = err;
       // Recoverable error check: 404, 429, 500, 503, etc. Proceed to next ladder step.
       continue;
@@ -109,9 +122,9 @@ app.post("/api/chat", async (req, res) => {
       modelUsed,
     });
   } catch (error: any) {
-    console.error("[DevLog Chat Error]:", error);
+    console.error("[DevLog Chat Error]:", sanitizeErrorMessage(error));
     return res.status(500).json({
-      error: error?.message || "Failed to generate conversational debugging response from Gemini.",
+      error: "Failed to generate conversational debugging response from AI service.",
     });
   }
 });
@@ -207,10 +220,9 @@ app.post("/api/extract-log", async (req, res) => {
     try {
       parsed = JSON.parse(rawJson);
     } catch (parseErr) {
-      console.error("Failed to parse structured JSON output:", rawJson);
+      console.error("[DevLog Extraction] Model output failed JSON parsing.");
       return res.status(502).json({
-        error: "Model output failed JSON parsing.",
-        raw: rawJson,
+        error: "Model output failed structured JSON schema parsing.",
       });
     }
 
@@ -233,9 +245,9 @@ app.post("/api/extract-log", async (req, res) => {
       modelUsed,
     });
   } catch (error: any) {
-    console.error("[DevLog Extraction Error]:", error);
+    console.error("[DevLog Extraction Error]:", sanitizeErrorMessage(error));
     return res.status(500).json({
-      error: error?.message || "Failed to extract structured record with Gemini.",
+      error: "Failed to extract structured debugging record from session.",
     });
   }
 });

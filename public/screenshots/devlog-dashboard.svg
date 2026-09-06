@@ -1,0 +1,266 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" style="background:#0B0C0E; font-family:'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <!-- Background subtle gradient & grain filter -->
+    <radialGradient id="bgGlow" cx="30%" cy="10%" r="60%">
+      <stop offset="0%" stop-color="#141820" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0B0C0E" stop-opacity="1" />
+    </radialGradient>
+    <filter id="glassFilter" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1440" height="900" fill="url(#bgGlow)" />
+
+  <!-- Top Navigation Bar (Glass Panel) -->
+  <rect x="0" y="0" width="1440" height="64" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1" />
+  <line x1="0" y1="1" x2="1440" y2="1" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1" />
+
+  <!-- Logo & Terminal Icon -->
+  <g transform="translate(48, 16)">
+    <rect x="0" y="0" width="32" height="32" rx="8" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.08" />
+    <path d="M9 12 L14 16 L9 20" stroke="#E8E8EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <line x1="16" y1="20" x2="23" y2="20" stroke="#E8E8EA" stroke-width="2" stroke-linecap="round" />
+    
+    <text x="44" y="22" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="600" fill="#E8E8EA" letter-spacing="-0.5">DevLog</text>
+    <rect x="114" y="6" width="60" height="20" rx="4" fill="#FFFFFF" fill-opacity="0.06" />
+    <text x="144" y="20" font-family="'JetBrains Mono', monospace" font-size="11" fill="#9A9AA2" text-anchor="middle">Console</text>
+  </g>
+
+  <!-- User Profile (NAME HIDDEN FOR PRIVACY) & Actions -->
+  <g transform="translate(1080, 16)">
+    <!-- Hidden / Anonymized Name Pill -->
+    <rect x="0" y="0" width="170" height="32" rx="8" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.06" />
+    <circle cx="14" cy="16" r="4" fill="#34D399" />
+    <text x="26" y="20" font-size="12" fill="#9A9AA2">developer (hidden)</text>
+    <!-- Privacy Shield Icon -->
+    <path d="M152 11 C152 11, 157 12, 159 13 C159 18, 156 22, 152 24 C148 22, 145 18, 145 13 C147 12, 152 11, 152 11 Z" fill="none" stroke="#9A9AA2" stroke-width="1.2" />
+
+    <!-- + New Log Button -->
+    <rect x="182" y="0" width="100" height="32" rx="8" fill="#6EA8FE" />
+    <path d="M196 16 L206 16 M201 11 L201 21" stroke="#0B0C0E" stroke-width="2" stroke-linecap="round" />
+    <text x="214" y="20" font-size="12" font-weight="600" fill="#0B0C0E">New Log</text>
+
+    <!-- Sign Out Button -->
+    <rect x="294" y="0" width="32" height="32" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+    <path d="M307 12 L307 20 M312 14 L315 16 L312 18 M304 16 L314 16" stroke="#9A9AA2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+
+  <!-- Main Content Grid -->
+  <!-- LEFT COLUMN: Search, Filters, DevLogs Feed (Width: 840) -->
+  <g transform="translate(48, 88)">
+
+    <!-- Filter & Search Bar Panel -->
+    <rect x="0" y="0" width="840" height="60" rx="12" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1" filter="url(#glassFilter)" />
+    <!-- Top edge highlight -->
+    <line x1="12" y1="1" x2="828" y2="1" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1" />
+
+    <!-- Search Input Box -->
+    <rect x="14" y="12" width="460" height="36" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+    <circle cx="32" cy="30" r="5" stroke="#9A9AA2" stroke-width="1.5" fill="none" />
+    <line x1="36" y1="34" x2="41" y2="39" stroke="#9A9AA2" stroke-width="1.5" stroke-linecap="round" />
+    <text x="50" y="34" font-size="12" fill="#9A9AA2">Search title, root cause, language, tags...</text>
+
+    <!-- Resolution Tabs -->
+    <g transform="translate(560, 12)">
+      <rect x="0" y="0" width="266" height="36" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+      <rect x="4" y="4" width="76" height="28" rx="6" fill="#FFFFFF" fill-opacity="0.08" />
+      <text x="42" y="22" font-size="12" font-weight="600" fill="#E8E8EA" text-anchor="middle">All (12)</text>
+      <text x="126" y="22" font-size="12" fill="#9A9AA2" text-anchor="middle">Resolved</text>
+      <text x="212" y="22" font-size="12" fill="#9A9AA2" text-anchor="middle">In progress</text>
+    </g>
+
+    <!-- Log List Header -->
+    <text x="0" y="90" font-size="12" fill="#9A9AA2">Showing 12 of 12 logs</text>
+
+    <!-- DevLog Card 1 (Expanded / Active) -->
+    <g transform="translate(0, 106)">
+      <rect x="0" y="0" width="840" height="290" rx="14" fill="#FFFFFF" fill-opacity="0.05" stroke="#FFFFFF" stroke-opacity="0.14" stroke-width="1" filter="url(#glassFilter)" />
+      <!-- Top highlight -->
+      <line x1="14" y1="1" x2="826" y2="1" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="1" />
+
+      <!-- Card Top Metadata -->
+      <g transform="translate(24, 20)">
+        <!-- Resolved Pill -->
+        <rect x="0" y="0" width="84" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+        <circle cx="12" cy="12" r="3.5" fill="#34D399" />
+        <text x="22" y="16" font-size="11" font-weight="600" fill="#E8E8EA">Resolved</text>
+
+        <!-- Difficulty Rating -->
+        <rect x="92" y="0" width="98" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="102" y="16" font-size="11" fill="#9A9AA2">Difficulty: <tspan fill="#E8E8EA" font-weight="600">4 / 5</tspan></text>
+
+        <!-- Language -->
+        <rect x="198" y="0" width="94" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="210" y="16" font-size="11" fill="#9A9AA2">TypeScript</text>
+
+        <!-- Time Spent -->
+        <rect x="300" y="0" width="68" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="312" y="16" font-size="11" fill="#9A9AA2">45 min</text>
+
+        <!-- Timestamp -->
+        <text x="792" y="16" font-size="12" fill="#9A9AA2" text-anchor="end">Oct 12, 2026 • 14:22</text>
+      </g>
+
+      <!-- Log Title -->
+      <text x="24" y="74" font-size="16" font-weight="600" fill="#E8E8EA">PostgreSQL connection pool exhaustion during concurrent batch ingestion</text>
+
+      <!-- Nested Secondary Panels for Root Cause & Resolution -->
+      <g transform="translate(24, 94)">
+        <!-- Root Cause Box -->
+        <rect x="0" y="0" width="386" height="110" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="16" y="24" font-size="12" font-weight="600" fill="#E8E8EA">Root cause</text>
+        <text x="16" y="46" font-size="11.5" fill="#9A9AA2" width="350">
+          <tspan x="16" dy="0">Worker threads were opening unpooled client</tspan>
+          <tspan x="16" dy="18">instances per webhook payload instead of pulling from</tspan>
+          <tspan x="16" dy="18">the shared PgPool singleton, exceeding max_connections.</tspan>
+        </text>
+
+        <!-- Resolution Box -->
+        <rect x="406" y="0" width="386" height="110" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="422" y="24" font-size="12" font-weight="600" fill="#E8E8EA">Resolution &amp; mitigation</text>
+        <text x="422" y="46" font-size="11.5" fill="#9A9AA2">
+          <tspan x="422" dy="0">Migrated to lazy-initialized singleton connection</tspan>
+          <tspan x="422" dy="18">manager with max 20 connections per container, and</tspan>
+          <tspan x="422" dy="18">implemented client.release() in guaranteed finally block.</tspan>
+        </text>
+      </g>
+
+      <!-- Tags & Footer -->
+      <g transform="translate(24, 224)">
+        <line x1="0" y1="0" x2="792" y2="0" stroke="#FFFFFF" stroke-opacity="0.06" stroke-width="1" />
+
+        <g transform="translate(0, 14)">
+          <rect x="0" y="0" width="94" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+          <text x="12" y="16" font-size="11" fill="#9A9AA2"># postgresql</text>
+
+          <rect x="102" y="0" width="138" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+          <text x="114" y="16" font-size="11" fill="#9A9AA2"># connection-pooling</text>
+
+          <rect x="248" y="0" width="96" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+          <text x="260" y="16" font-size="11" fill="#9A9AA2"># concurrency</text>
+
+          <rect x="352" y="0" width="70" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+          <text x="364" y="16" font-size="11" fill="#9A9AA2"># docker</text>
+
+          <text x="792" y="16" font-size="11" fill="#9A9AA2" text-anchor="end">Transcript ID: tx_98fa20b • 6 turns</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- DevLog Card 2 (Collapsed) -->
+    <g transform="translate(0, 412)">
+      <rect x="0" y="0" width="840" height="120" rx="14" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1" />
+      <line x1="14" y1="1" x2="826" y2="1" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1" />
+
+      <g transform="translate(24, 18)">
+        <rect x="0" y="0" width="92" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+        <circle cx="12" cy="12" r="3.5" fill="#FBBF24" />
+        <text x="22" y="16" font-size="11" font-weight="600" fill="#E8E8EA">In progress</text>
+
+        <rect x="100" y="0" width="98" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="110" y="16" font-size="11" fill="#9A9AA2">Difficulty: <tspan fill="#E8E8EA" font-weight="600">3 / 5</tspan></text>
+
+        <rect x="206" y="0" width="60" height="24" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="218" y="16" font-size="11" fill="#9A9AA2">React</text>
+
+        <text x="792" y="16" font-size="12" fill="#9A9AA2" text-anchor="end">Oct 11, 2026 • 19:40</text>
+      </g>
+
+      <text x="24" y="68" font-size="15" font-weight="600" fill="#E8E8EA">Stale closure race condition inside debounce handler on rapid input events</text>
+      <text x="24" y="94" font-size="12" fill="#9A9AA2"><tspan fill="#E8E8EA" font-weight="500">Root cause:</tspan> Event handler captured component state snapshot at mount rather than latest ref.</text>
+    </g>
+  </g>
+
+  <!-- RIGHT COLUMN: Pattern Radar Panel & Philosophy (Width: 460) -->
+  <g transform="translate(932, 88)">
+
+    <!-- Pattern Radar Panel -->
+    <rect x="0" y="0" width="460" height="380" rx="14" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1" filter="url(#glassFilter)" />
+    <line x1="14" y1="1" x2="446" y2="1" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1" />
+
+    <!-- Radar Header -->
+    <g transform="translate(24, 20)">
+      <rect x="0" y="0" width="32" height="32" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+      <!-- Radar Target Icon -->
+      <circle cx="16" cy="16" r="8" stroke="#9A9AA2" stroke-width="1.5" fill="none" />
+      <circle cx="16" cy="16" r="3" fill="#6EA8FE" />
+
+      <text x="44" y="16" font-size="14" font-weight="600" fill="#E8E8EA">Pattern radar</text>
+      <rect x="138" y="2" width="76" height="18" rx="4" fill="#FFFFFF" fill-opacity="0.06" />
+      <text x="176" y="15" font-size="10" fill="#9A9AA2" text-anchor="middle">User scoped</text>
+      <text x="44" y="32" font-size="11" fill="#9A9AA2">Recurring failure vectors in your personal codebase</text>
+
+      <text x="412" y="14" font-size="11" fill="#9A9AA2" text-anchor="end">Resolution rate</text>
+      <text x="412" y="32" font-size="16" font-weight="600" fill="#E8E8EA" text-anchor="end">87%</text>
+    </g>
+
+    <line x1="24" y1="74" x2="436" y2="74" stroke="#FFFFFF" stroke-opacity="0.06" stroke-width="1" />
+
+    <!-- Radar Item List -->
+    <g transform="translate(24, 90)">
+      <text x="0" y="0" font-size="11" fill="#9A9AA2">Frequent vectors (4 distinct)</text>
+
+      <!-- Vector 1 -->
+      <g transform="translate(0, 14)">
+        <rect x="0" y="0" width="412" height="52" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="14" y="22" font-size="12" font-weight="600" fill="#E8E8EA"># race-condition</text>
+        <text x="398" y="22" font-size="11" fill="#9A9AA2" text-anchor="end">5 incidents</text>
+        <!-- Bar background & fill -->
+        <rect x="14" y="34" width="384" height="4" rx="2" fill="#FFFFFF" fill-opacity="0.06" />
+        <rect x="14" y="34" width="384" height="4" rx="2" fill="#6EA8FE" />
+      </g>
+
+      <!-- Vector 2 -->
+      <g transform="translate(0, 74)">
+        <rect x="0" y="0" width="412" height="52" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="14" y="22" font-size="12" font-weight="600" fill="#E8E8EA"># connection-pooling</text>
+        <text x="398" y="22" font-size="11" fill="#9A9AA2" text-anchor="end">4 incidents</text>
+        <rect x="14" y="34" width="384" height="4" rx="2" fill="#FFFFFF" fill-opacity="0.06" />
+        <rect x="14" y="34" width="300" height="4" rx="2" fill="#E8E8EA" fill-opacity="0.5" />
+      </g>
+
+      <!-- Vector 3 -->
+      <g transform="translate(0, 134)">
+        <rect x="0" y="0" width="412" height="52" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="14" y="22" font-size="12" font-weight="600" fill="#E8E8EA"># memory-leak</text>
+        <text x="398" y="22" font-size="11" fill="#9A9AA2" text-anchor="end">3 incidents</text>
+        <rect x="14" y="34" width="384" height="4" rx="2" fill="#FFFFFF" fill-opacity="0.06" />
+        <rect x="14" y="34" width="220" height="4" rx="2" fill="#E8E8EA" fill-opacity="0.5" />
+      </g>
+
+      <!-- Vector 4 -->
+      <g transform="translate(0, 194)">
+        <rect x="0" y="0" width="412" height="52" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+        <text x="14" y="22" font-size="12" font-weight="600" fill="#E8E8EA"># async-await</text>
+        <text x="398" y="22" font-size="11" fill="#9A9AA2" text-anchor="end">2 incidents</text>
+        <rect x="14" y="34" width="384" height="4" rx="2" fill="#FFFFFF" fill-opacity="0.06" />
+        <rect x="14" y="34" width="140" height="4" rx="2" fill="#E8E8EA" fill-opacity="0.5" />
+      </g>
+    </g>
+
+    <!-- DevLog Philosophy Box -->
+    <g transform="translate(0, 400)">
+      <rect x="0" y="0" width="460" height="150" rx="14" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1" filter="url(#glassFilter)" />
+      <line x1="14" y1="1" x2="446" y2="1" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1" />
+
+      <g transform="translate(24, 20)">
+        <text x="0" y="14" font-size="13" font-weight="600" fill="#E8E8EA">The DevLog philosophy</text>
+        <text x="0" y="36" font-size="11.5" fill="#9A9AA2" width="412">
+          <tspan x="0" dy="0">Traditional journals capture sentiment; DevLog captures</tspan>
+          <tspan x="0" dy="18">technical mechanism. Use sessions to dissect race</tspan>
+          <tspan x="0" dy="18">conditions, memory leaks, and architectural deadlocks.</tspan>
+        </text>
+
+        <g transform="translate(0, 80)">
+          <circle cx="6" cy="6" r="3" fill="#34D399" />
+          <text x="16" y="10" font-size="11" fill="#E8E8EA">Owner-bound Firestore isolation</text>
+
+          <circle cx="216" cy="6" r="3" fill="#6EA8FE" />
+          <text x="226" y="10" font-size="11" fill="#E8E8EA">Gemini JSON Schema extraction</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

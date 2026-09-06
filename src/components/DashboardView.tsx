@@ -2,19 +2,18 @@ import React, { useState, useEffect, useMemo } from "react";
 import { 
   Plus, 
   Search, 
-  Filter, 
   Terminal, 
   LogOut, 
   RefreshCw, 
-  AlertCircle, 
-  Hash, 
-  SlidersHorizontal,
-  Layers,
-  Bug,
-  Sparkles,
-  ShieldCheck,
-  CheckCircle2,
-  ListFilter
+  Bug, 
+  CheckCircle2, 
+  ListFilter,
+  Eye,
+  EyeOff,
+  Camera,
+  X,
+  ExternalLink,
+  Download
 } from "lucide-react";
 import { User } from "firebase/auth";
 import { DevLogDocument, StructuredDevLog, ChatMessage } from "../types";
@@ -40,6 +39,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [resolutionFilter, setResolutionFilter] = useState<"all" | "resolved" | "unresolved">("all");
   const [statusNotification, setStatusNotification] = useState<{ message: string; type: "success" | "error" } | null>(null);
+  const [isPrivacyMode, setIsPrivacyMode] = useState(true);
+  const [showScreenshotsModal, setShowScreenshotsModal] = useState(false);
+  const [activeScreenshot, setActiveScreenshot] = useState<"dashboard" | "session" | "landing">("dashboard");
 
   // Load user-isolated DevLogs
   const loadLogs = async () => {
@@ -147,14 +149,39 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            {/* User profile indicator */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg glass-panel-secondary text-xs">
-              <div className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span className="text-[#9A9AA2] truncate max-w-[180px]">
-                {user.displayName || user.email}
+          <div className="flex items-center gap-2.5">
+            {/* Screenshots Gallery Action */}
+            <button
+              id="view-screenshots-btn"
+              onClick={() => setShowScreenshotsModal(true)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg glass-panel-secondary hover:bg-white/[0.08] text-xs text-[#9A9AA2] hover:text-[#E8E8EA] transition-colors cursor-pointer"
+              title="View clean UI screenshots (name hidden)"
+            >
+              <Camera className="w-3.5 h-3.5 text-[#6EA8FE]" />
+              <span className="hidden md:inline">Screenshots</span>
+            </button>
+
+            {/* User profile indicator with Privacy Mode Toggle */}
+            <button
+              id="privacy-mode-toggle-btn"
+              onClick={() => setIsPrivacyMode(!isPrivacyMode)}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg glass-panel-secondary hover:bg-white/[0.08] text-xs transition-colors cursor-pointer"
+              title={
+                isPrivacyMode 
+                  ? "Privacy mode ON: Real name & email are hidden. Click to reveal." 
+                  : "Privacy mode OFF: Click to hide name & email for screenshots."
+              }
+            >
+              <div className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+              <span className="text-[#9A9AA2] truncate max-w-[140px] sm:max-w-[180px]">
+                {isPrivacyMode ? "developer (hidden)" : (user.displayName || user.email)}
               </span>
-            </div>
+              {isPrivacyMode ? (
+                <EyeOff className="w-3.5 h-3.5 text-[#6EA8FE] shrink-0" />
+              ) : (
+                <Eye className="w-3.5 h-3.5 text-[#9A9AA2] shrink-0" />
+              )}
+            </button>
 
             {/* New Log Action button (Single blue accent) */}
             {!isStartingSession && (
@@ -414,6 +441,143 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
             </div>
           </div>
         </main>
+      )}
+
+      {/* Screenshots Gallery Modal (Clean UI with real name hidden) */}
+      {showScreenshotsModal && (
+        <div 
+          id="screenshots-modal-backdrop"
+          className="fixed inset-0 z-50 bg-[#0B0C0E]/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+          onClick={() => setShowScreenshotsModal(false)}
+        >
+          <div 
+            id="screenshots-modal-content"
+            className="glass-panel rounded-2xl w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden border border-white/[0.12] shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.08]">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg glass-panel-secondary flex items-center justify-center text-[#6EA8FE]">
+                  <Camera className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium text-[#E8E8EA] flex items-center gap-2">
+                    <span>Application UI screenshots</span>
+                    <span className="text-[11px] px-2 py-0.5 rounded glass-panel-secondary text-[#9A9AA2]">
+                      Name hidden
+                    </span>
+                  </h3>
+                  <p className="text-xs text-[#9A9AA2]">
+                    High-resolution vector captures with privacy masking
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <a
+                  href={
+                    activeScreenshot === "dashboard"
+                      ? "/screenshots/devlog-dashboard.svg"
+                      : activeScreenshot === "session"
+                      ? "/screenshots/devlog-session.svg"
+                      : "/screenshots/devlog-landing.svg"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg glass-panel-secondary hover:bg-white/[0.08] text-xs text-[#9A9AA2] hover:text-[#E8E8EA] transition-colors"
+                  title="Open full resolution in new tab"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Open full resolution</span>
+                </a>
+                <a
+                  href={
+                    activeScreenshot === "dashboard"
+                      ? "/screenshots/devlog-dashboard.svg"
+                      : activeScreenshot === "session"
+                      ? "/screenshots/devlog-session.svg"
+                      : "/screenshots/devlog-landing.svg"
+                  }
+                  download={`devlog-${activeScreenshot}.svg`}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg glass-panel-secondary hover:bg-white/[0.08] text-xs text-[#9A9AA2] hover:text-[#E8E8EA] transition-colors"
+                  title="Download screenshot file"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Download</span>
+                </a>
+                <button
+                  onClick={() => setShowScreenshotsModal(false)}
+                  className="p-1.5 rounded-lg glass-panel-secondary hover:bg-white/[0.08] text-[#9A9AA2] hover:text-[#E8E8EA] transition-colors cursor-pointer"
+                  title="Close modal"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* View Switcher Tabs */}
+            <div className="flex items-center gap-2 px-6 py-3 border-b border-white/[0.06] bg-black/20 text-xs">
+              <button
+                onClick={() => setActiveScreenshot("dashboard")}
+                className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer font-medium ${
+                  activeScreenshot === "dashboard"
+                    ? "bg-[#6EA8FE] text-[#0B0C0E]"
+                    : "glass-panel-secondary text-[#9A9AA2] hover:text-[#E8E8EA]"
+                }`}
+              >
+                1. Dashboard &amp; Pattern Radar
+              </button>
+              <button
+                onClick={() => setActiveScreenshot("session")}
+                className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer font-medium ${
+                  activeScreenshot === "session"
+                    ? "bg-[#6EA8FE] text-[#0B0C0E]"
+                    : "glass-panel-secondary text-[#9A9AA2] hover:text-[#E8E8EA]"
+                }`}
+              >
+                2. Active Debugging Session
+              </button>
+              <button
+                onClick={() => setActiveScreenshot("landing")}
+                className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer font-medium ${
+                  activeScreenshot === "landing"
+                    ? "bg-[#6EA8FE] text-[#0B0C0E]"
+                    : "glass-panel-secondary text-[#9A9AA2] hover:text-[#E8E8EA]"
+                }`}
+              >
+                3. Landing View
+              </button>
+            </div>
+
+            {/* Screenshot Display Frame */}
+            <div className="flex-1 overflow-auto p-6 bg-[#08090B] flex items-center justify-center">
+              <div className="w-full max-w-4xl rounded-xl overflow-hidden border border-white/[0.08] shadow-2xl bg-[#0B0C0E]">
+                <img
+                  src={
+                    activeScreenshot === "dashboard"
+                      ? "/screenshots/devlog-dashboard.svg"
+                      : activeScreenshot === "session"
+                      ? "/screenshots/devlog-session.svg"
+                      : "/screenshots/devlog-landing.svg"
+                  }
+                  alt={`DevLog ${activeScreenshot} UI Screenshot`}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-auto block"
+                />
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="px-6 py-3 border-t border-white/[0.06] flex items-center justify-between text-xs text-[#9A9AA2]">
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span>Zero personal data or email displayed &bull; Privacy preserved</span>
+              </span>
+              <span>Vector format &bull; Crisp at any scale</span>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

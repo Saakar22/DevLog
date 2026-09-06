@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" style="background:#0B0C0E; font-family:'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <radialGradient id="sessionGlow" cx="50%" cy="15%" r="60%">
+      <stop offset="0%" stop-color="#141820" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0B0C0E" stop-opacity="1" />
+    </radialGradient>
+    <filter id="glassShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1440" height="900" fill="url(#sessionGlow)" />
+
+  <!-- Session Header / Top Bar (Glass Panel) -->
+  <rect x="0" y="0" width="1440" height="64" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1" />
+  <line x1="0" y1="1" x2="1440" y2="1" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1" />
+
+  <g transform="translate(180, 16)">
+    <!-- Back Button -->
+    <rect x="0" y="0" width="32" height="32" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+    <path d="M19 16 L13 16 M16 13 L13 16 L16 19" stroke="#9A9AA2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+    <!-- Session Title & Status -->
+    <text x="44" y="16" font-size="14" font-weight="600" fill="#E8E8EA">Active debugging session</text>
+    <circle cx="214" cy="12" r="4" fill="#34D399" />
+    <text x="44" y="30" font-size="11" fill="#9A9AA2">3 user turns recorded • Rubber-ducking mode</text>
+
+    <!-- End Session Action Button (Electric Blue Accent) -->
+    <g transform="translate(900, 0)">
+      <rect x="0" y="0" width="180" height="32" rx="8" fill="#6EA8FE" />
+      <path d="M16 11 L21 16 L16 21 M21 16 L11 16" stroke="#0B0C0E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      <text x="28" y="20" font-size="12" font-weight="600" fill="#0B0C0E">End session &amp; extract log</text>
+    </g>
+  </g>
+
+  <!-- Chat Area Container (Width: 1080) -->
+  <g transform="translate(180, 88)">
+
+    <!-- Message 1: Assistant Greeting -->
+    <g transform="translate(0, 0)">
+      <!-- Assistant Avatar -->
+      <rect x="0" y="0" width="32" height="32" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+      <circle cx="16" cy="14" r="5" stroke="#E8E8EA" stroke-width="1.5" fill="none" />
+      <path d="M12 24 C12 21 14 20 16 20 C18 20 20 21 20 24" stroke="#E8E8EA" stroke-width="1.5" stroke-linecap="round" fill="none" />
+
+      <!-- Assistant Bubble (Secondary Glass) -->
+      <rect x="44" y="0" width="760" height="76" rx="12" fill="#FFFFFF" fill-opacity="0.06" filter="url(#glassShadow)" />
+      <g transform="translate(60, 16)">
+        <text x="0" y="4" font-size="11" font-weight="600" fill="#E8E8EA">Gemini Debugging Copilot</text>
+        <text x="700" y="4" font-size="10" fill="#9A9AA2" text-anchor="end">14:15</text>
+        <text x="0" y="26" font-size="12.5" fill="#E8E8EA" leading-relaxed="true">
+          I'm ready to rubber-duck. Paste your stack trace, unexpected test failure, or describe what's failing. Let's isolate the root mechanism.
+        </text>
+      </g>
+    </g>
+
+    <!-- Message 2: User Query (Right aligned) -->
+    <g transform="translate(240, 96)">
+      <!-- User Bubble (Primary Glass with subtle border) -->
+      <rect x="0" y="0" width="796" height="120" rx="12" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1" filter="url(#glassShadow)" />
+      <line x1="12" y1="1" x2="784" y2="1" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="1" />
+
+      <g transform="translate(16, 16)">
+        <text x="0" y="4" font-size="11" font-weight="600" fill="#E8E8EA">You (Developer)</text>
+        <text x="764" y="4" font-size="10" fill="#9A9AA2" text-anchor="end">14:16</text>
+        <text x="0" y="26" font-size="12" fill="#E8E8EA">
+          <tspan x="0" dy="0">Our PostgreSQL ingestion pipeline crashes after ~50 concurrent webhooks with error:</tspan>
+          <tspan x="0" dy="20" font-family="'JetBrains Mono', monospace" fill="#6EA8FE">"FATAL: remaining connection slots are reserved for non-replication superuser connections"</tspan>
+          <tspan x="0" dy="20">We thought we were using a pool, but looking at our worker code, each webhook instantiates its own Client().</tspan>
+        </text>
+      </g>
+
+      <!-- User Avatar -->
+      <rect x="808" y="0" width="32" height="32" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+      <circle cx="824" cy="14" r="5" stroke="#9A9AA2" stroke-width="1.5" fill="none" />
+      <path d="M820 24 C820 21 822 20 824 20 C826 20 828 21 828 24" stroke="#9A9AA2" stroke-width="1.5" stroke-linecap="round" fill="none" />
+    </g>
+
+    <!-- Message 3: Assistant Diagnostic Reply -->
+    <g transform="translate(0, 236)">
+      <rect x="0" y="0" width="32" height="32" rx="8" fill="#FFFFFF" fill-opacity="0.06" />
+      <circle cx="16" cy="14" r="5" stroke="#E8E8EA" stroke-width="1.5" fill="none" />
+      <path d="M12 24 C12 21 14 20 16 20 C18 20 20 21 20 24" stroke="#E8E8EA" stroke-width="1.5" stroke-linecap="round" fill="none" />
+
+      <rect x="44" y="0" width="880" height="210" rx="12" fill="#FFFFFF" fill-opacity="0.06" filter="url(#glassShadow)" />
+      <g transform="translate(60, 16)">
+        <text x="0" y="4" font-size="11" font-weight="600" fill="#E8E8EA">Gemini Debugging Copilot</text>
+        <text x="820" y="4" font-size="10" fill="#9A9AA2" text-anchor="end">14:18</text>
+        
+        <text x="0" y="26" font-size="12.5" fill="#E8E8EA">
+          <tspan x="0" dy="0">That confirms connection exhaustion. In pg, new Client() opens a standalone TCP connection rather than borrowing</tspan>
+          <tspan x="0" dy="18">from a managed pool. When 50 concurrent webhooks arrive, they immediately exhaust Postgres max_connections.</tspan>
+        </text>
+
+        <!-- Code Block inside Glass -->
+        <rect x="0" y="56" width="820" height="110" rx="8" fill="#0B0C0E" fill-opacity="0.6" stroke="#FFFFFF" stroke-opacity="0.08" />
+        <g transform="translate(16, 74)">
+          <text x="0" y="0" font-family="'JetBrains Mono', monospace" font-size="11" fill="#9A9AA2">// Fix: Export singleton pg.Pool and checkout/release properly</text>
+          <text x="0" y="18" font-family="'JetBrains Mono', monospace" font-size="11" fill="#E8E8EA">const client = await pool.connect();</text>
+          <text x="0" y="36" font-family="'JetBrains Mono', monospace" font-size="11" fill="#E8E8EA">try {</text>
+          <text x="20" y="54" font-family="'JetBrains Mono', monospace" font-size="11" fill="#E8E8EA">await client.query('INSERT INTO webhooks ...', [payload]);</text>
+          <text x="0" y="72" font-family="'JetBrains Mono', monospace" font-size="11" fill="#E8E8EA">} finally { client.release(); }</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Quick Suggestion Pills -->
+    <g transform="translate(44, 466)">
+      <rect x="0" y="0" width="260" height="28" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+      <text x="12" y="18" font-size="11" fill="#9A9AA2">"How do I configure connection timeouts?"</text>
+
+      <rect x="272" y="0" width="220" height="28" rx="6" fill="#FFFFFF" fill-opacity="0.06" />
+      <text x="284" y="18" font-size="11" fill="#9A9AA2">"That resolved it, let's extract the log!"</text>
+    </g>
+
+    <!-- Input Box (Glass Panel) -->
+    <g transform="translate(0, 508)">
+      <rect x="0" y="0" width="1080" height="110" rx="14" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1" filter="url(#glassFilter)" />
+      <line x1="14" y1="1" x2="1066" y2="1" stroke="#FFFFFF" stroke-opacity="0.14" stroke-width="1" />
+
+      <text x="20" y="32" font-size="12" fill="#9A9AA2">Type your error message, code excerpt, or hypothesis... (Shift+Enter for newline)</text>
+
+      <!-- Bottom Bar in Input -->
+      <line x1="16" y1="68" x2="1064" y2="68" stroke="#FFFFFF" stroke-opacity="0.06" stroke-width="1" />
+      <g transform="translate(20, 84)">
+        <text x="0" y="8" font-size="11" fill="#9A9AA2">Press <tspan fill="#E8E8EA">Enter</tspan> to send</text>
+
+        <!-- Send Button -->
+        <rect x="970" y="-8" width="70" height="28" rx="6" fill="#6EA8FE" />
+        <text x="996" y="10" font-size="11" font-weight="600" fill="#0B0C0E">Send</text>
+        <path d="M1024 10 L1028 6 L1024 2" stroke="#0B0C0E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      </g>
+    </g>
+  </g>
+</svg>

@@ -21,6 +21,7 @@ import {
 } from "firebase/firestore";
 import firebaseConfig from "../../firebase-applet-config.json";
 import { DevLogDocument, DevLogTranscript, StructuredDevLog, ChatMessage } from "../types";
+import { redactSecrets } from "./redactSecrets";
 
 // Initialize Firebase App singleton
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
@@ -98,8 +99,9 @@ export async function saveDevLogWithTranscript(
     transcriptId,
   };
 
-  const safeTranscript = sanitizePayload(transcriptDoc);
-  const safeLog = sanitizePayload(devLogDoc);
+  // Sanitize and redact any accidental secrets before persisting
+  const safeTranscript = sanitizePayload(redactSecrets(transcriptDoc));
+  const safeLog = sanitizePayload(redactSecrets(devLogDoc));
 
   // Save to /users/{userId}/transcripts/{transcriptId}
   const transcriptRef = doc(db, "users", userId, "transcripts", transcriptId);
